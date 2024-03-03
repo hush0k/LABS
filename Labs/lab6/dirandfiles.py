@@ -92,8 +92,11 @@ def copy_to_other():
 def delete_existing_file():
     path = str(input("Enter the path: "))
     if os.path.exists(path):
-        os.remove(path)
-        print('The file was exists and have been deleted✔️')
+        if os.access(path, os.X_OK):
+            os.remove(path)
+            print('The file was exists and have been deleted✔️')
+        else:
+            print('This file is not accessiable❌')
     else:
         print('The file does not exist❌')
 
